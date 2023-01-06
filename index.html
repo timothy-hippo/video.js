@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <video id="video-js" class="video-js vjs-fluid vjs-theme-forest" data-setup="{}" controls="controls" preload="auto"
+    controlsList="nodownload">
+    <source src="./media/20230106.mov" type="video/mp4" />
+    <p class="vjs-no-js">您的瀏覽器不支援 Javascript</p>
+  </video>
+  <!-- 官方中文語系JSON檔 -->
+  <!-- https://raw.githubusercontent.com/videojs/video.js/main/lang/zh-TW.json -->
+  <button class="play">Play</button>
+  <button class="pause">pause</button>
+
+  <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
+  <script>
+
+    videojs.addLanguage('zh-TW', {
+      "Play": "播放",
+      "Pause": "暫停",
+      "Current Time": "目前時間",
+      // ...
+    }); // 命名中文語系為「zh-TW」
+    const player = videojs('video-js', {
+      language: 'zh-TW' // 設定使用語系為 zh-TW
+    });
+
+    // 監聽事件：https://docs.videojs.com/player#:~:text=the%2Dmediametadata%2Dinterface-,Events,-beforepluginsetup%3A%24name
+    player.on('play', (event) => {
+      // 取影片總長度（單位：秒）
+      console.log('影片總長：', player.duration());
+    });
+    player.on('pause', (event) => {
+      // 取影片總長度（單位：秒）
+      console.log('影片總長：', player.currentTime());
+    });
+
+    // methods
+    const play = document.querySelector('.play')
+    const pause = document.querySelector('.pause')
+    play.addEventListener('click', function () {
+      player.play();
+    })
+    pause.addEventListener('click', function () {
+      // 取當下秒數
+      player.pause();
+    })
+  </script>
+</body>
+
+</html>
